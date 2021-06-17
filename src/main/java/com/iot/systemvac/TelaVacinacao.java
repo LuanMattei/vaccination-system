@@ -14,14 +14,21 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import static java.lang.Thread.sleep;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import login.Logout;
 import model.ProdutoTableModel;
+import model.loadingBar;
 
 /**
  *
@@ -92,6 +99,9 @@ public class TelaVacinacao extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         cabecalho = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        segundaDose = new javax.swing.JLabel();
+        primeiraDose = new javax.swing.JLabel();
         pnlCard1 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
@@ -430,17 +440,17 @@ public class TelaVacinacao extends javax.swing.JFrame {
             }
         });
 
-        horario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        horario.setForeground(java.awt.Color.white);
+        horario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         horario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         horario.setText(" ");
 
+        jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Horario:");
 
+        jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Dia:");
 
-        dia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        dia.setForeground(java.awt.Color.white);
+        dia.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         dia.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         dia.setText(" ");
 
@@ -480,18 +490,18 @@ public class TelaVacinacao extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(horario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(horario, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dia, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(5, 5, 5))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel1)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(dia))
@@ -502,19 +512,19 @@ public class TelaVacinacao extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(leave)
                 .addGap(18, 18, 18)
-                .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
-                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
-                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
-                .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
-                .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -551,11 +561,24 @@ public class TelaVacinacao extends javax.swing.JFrame {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(cabecalho, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(19, Short.MAX_VALUE))
         );
+
+        jProgressBar1.setBackground(java.awt.Color.white);
+        jProgressBar1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jProgressBar1.setForeground(java.awt.Color.black);
+        jProgressBar1.setToolTipText("");
+        jProgressBar1.setBorderPainted(false);
+        jProgressBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jProgressBar1.setEnabled(false);
+        jProgressBar1.setStringPainted(true);
+
+        segundaDose.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
+        primeiraDose.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         javax.swing.GroupLayout pnlInicialLayout = new javax.swing.GroupLayout(pnlInicial);
         pnlInicial.setLayout(pnlInicialLayout);
@@ -563,6 +586,14 @@ public class TelaVacinacao extends javax.swing.JFrame {
             pnlInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInicialLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(segundaDose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(primeiraDose, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(131, 131, 131))
         );
         pnlInicialLayout.setVerticalGroup(
             pnlInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -570,7 +601,15 @@ public class TelaVacinacao extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(281, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(pnlInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlInicialLayout.createSequentialGroup()
+                        .addComponent(primeiraDose, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(segundaDose, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(125, 125, 125)))
+                .addGap(32, 32, 32))
         );
 
         pnlCards.add(pnlInicial, "pnlInicial");
@@ -1826,11 +1865,10 @@ public class TelaVacinacao extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(jLabel37)
                         .addGap(13, 13, 13)
-                        .addGroup(pnlSegundaDoseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlSegundaDoseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Pesquisar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel67, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSegundaDoseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Pesquisar2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtCpf8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtCpf8))
                         .addGap(18, 18, 18)
                         .addGroup(pnlSegundaDoseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel68, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -2266,6 +2304,8 @@ public class TelaVacinacao extends javax.swing.JFrame {
             .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        getAccessibleContext().setAccessibleName("frame1");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
      String nome ; 
@@ -2301,6 +2341,7 @@ public class TelaVacinacao extends javax.swing.JFrame {
         p2.CadastrarPaciente();
         //Retorna os atributos do db
         p1.obter(txtCpf3.getText());
+        acionar();
         /*Apaga aquilo que foi escrito nas labels*/
         txtNome3.setText(null);
         txtCpf3.setText(null);
@@ -2327,6 +2368,7 @@ public class TelaVacinacao extends javax.swing.JFrame {
             Vacinacao v2 = new Vacinacao(txtUnidade4.getText(),txtSegundaDosePrimeira.getText()
             ,v1.showSecondDose(vac1.getEntreDose()),p1.getId(),vac1.getId());
             v2.CadastrarCidadaoVacinado(); 
+            acionar();
             cardlayout.next(pnlCards);
             txtCpf9.setText(null);
             txtNome7.setText(null);
@@ -2383,6 +2425,7 @@ public class TelaVacinacao extends javax.swing.JFrame {
           // JOptionPane.ERROR_MESSAGE 
          JOptionPane.showMessageDialog(pnlCards,  "Paciente não foi excluido", "Failure", JOptionPane.ERROR_MESSAGE);
         }
+        acionar();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void txtCpf5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpf5ActionPerformed
@@ -2674,11 +2717,21 @@ public class TelaVacinacao extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(pnlCards,"Paciente já tomou todas as doses");  
         }
+        casoForultimaDose();
+        acionar();
         vac1.limparCampos( txtNomeSegunda, txtNomeVacinaSegunda,
             txtPrimeiraDoseSegunda, txtUnidadeSegunda,
     quantidade, txtCpf8);
     }//GEN-LAST:event_SegundaDoseActionPerformed
-
+    private void casoForultimaDose(){
+        p1.obter(txtCpf8.getText());
+        v1.obterId(p1.getId());
+        vac1.obter(v1.getId_vacina());
+        v1.contar(p1.getId());
+        if(vac1.getQtdeDose() == v1.getQuantidade());{
+        v1.segundaDose(v1.getId());
+    }
+    }
     private void txtSegundaDoseSegundaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSegundaDoseSegundaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSegundaDoseSegundaActionPerformed
@@ -2694,7 +2747,6 @@ public class TelaVacinacao extends javax.swing.JFrame {
     private void Pesquisar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pesquisar2ActionPerformed
         // TODO add your handling code here:
         p1.obter(txtCpf8.getText());
-        System.out.println(p1.getId());
         v1.obterId(p1.getId());
         vac1.obter(v1.getId_vacina());
         v1.contar(p1.getId());
@@ -2798,7 +2850,17 @@ public class TelaVacinacao extends javax.swing.JFrame {
         // TODO add your handling code here:
         leave.setBackground(Color.white);
     }//GEN-LAST:event_leaveMouseExited
-
+    private void acionar(){
+        jProgressBar1.setOrientation(javax.swing.JProgressBar.VERTICAL);
+                 loadingBar bar  = new loadingBar();
+        jProgressBar1.setMaximum(bar.getPrimeira());
+       
+        jProgressBar1.setValue(bar.getSegunda());
+        primeiraDose.setText("Total de vacinas aplicadas:\n"+
+                bar.getPrimeira());
+        segundaDose.setText("Total de segunda dose aplicadas:\n"+
+                bar.getSegunda());
+    }
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         Date dataSistema = new Date();
@@ -2806,6 +2868,8 @@ public class TelaVacinacao extends javax.swing.JFrame {
         dia.setText(formato.format(dataSistema));
         Timer timer = new Timer (1000,new hora());
         timer.start();
+            acionar();       
+
     }//GEN-LAST:event_formWindowOpened
     class hora implements ActionListener{
         @Override
@@ -2971,6 +3035,7 @@ public class TelaVacinacao extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTable jTable2;
@@ -2988,7 +3053,9 @@ public class TelaVacinacao extends javax.swing.JFrame {
     private javax.swing.JPanel pnlRelatorio;
     private javax.swing.JPanel pnlSegundaDose;
     private javax.swing.JPanel pnlVacinacao;
+    private javax.swing.JLabel primeiraDose;
     private javax.swing.JTextField quantidade;
+    private javax.swing.JLabel segundaDose;
     private javax.swing.JSpinner spinnerDoses;
     private javax.swing.JSpinner spinnerDoses1;
     private javax.swing.JSpinner spinnerprazo;
