@@ -430,7 +430,8 @@ public class TelaVacinacao extends javax.swing.JFrame {
             }
         });
 
-        horario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        horario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        horario.setForeground(java.awt.Color.white);
         horario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         horario.setText(" ");
 
@@ -438,7 +439,8 @@ public class TelaVacinacao extends javax.swing.JFrame {
 
         jLabel4.setText("Dia:");
 
-        dia.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        dia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        dia.setForeground(java.awt.Color.white);
         dia.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         dia.setText(" ");
 
@@ -500,19 +502,19 @@ public class TelaVacinacao extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(leave)
                 .addGap(18, 18, 18)
-                .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
-                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
-                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
-                .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                 .addGap(5, 5, 5)
-                .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
