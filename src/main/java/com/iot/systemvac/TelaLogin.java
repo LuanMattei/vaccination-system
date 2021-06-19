@@ -209,10 +209,10 @@ Color verde = new Color(205,252,205);
                 f.obter(cpf);
             }
             else{
-                JOptionPane.showMessageDialog(this,"Insira corretamenta as credencias ou faça login");
+                JOptionPane.showMessageDialog(this,"Insira corretamenta as credencias ou se cadastre");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,"Insira corretamenta as credencias ou faça login");
+            JOptionPane.showMessageDialog(this,"Insira corretamenta as credencias ou se cadastre");
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed

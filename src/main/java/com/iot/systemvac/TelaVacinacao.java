@@ -2342,6 +2342,7 @@ public class TelaVacinacao extends javax.swing.JFrame {
         //Retorna os atributos do db
         p1.obter(txtCpf3.getText());
         acionar();
+        JOptionPane.showMessageDialog(this,"Paciente cadastrado","Cadastrado",JOptionPane.INFORMATION_MESSAGE);
         /*Apaga aquilo que foi escrito nas labels*/
         txtNome3.setText(null);
         txtCpf3.setText(null);
